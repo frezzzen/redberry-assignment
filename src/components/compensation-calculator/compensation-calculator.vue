@@ -4,63 +4,80 @@ import BaseInput from '../base/base-input.vue';
 import BaseCheckbox from '../base/base-checkbox.vue';
 import { UserInformation } from '../../types/user/user-information.type';
 import BaseButton from '../base/base-button.vue';
+import { useCompensationCalculator } from '../../composables/useCompensationCalculator';
+import FormattedNumber from '../common/formatted-number.vue';
 
 const userInformation = ref<UserInformation>({
   averageIncome: 0,
   daysOnSickLeave: 0,
   hasTuberculosis: false
 });
+
+const { employer, healthInsurance, calculateCompensation } = useCompensationCalculator(userInformation);
+
+const onCalculateClick = () => {
+  calculateCompensation();
+};
 </script>
 
 <template>
   <div class="compensation-calculator">
-    <h1>Compensation Calculator</h1>
-    <form @submit.prevent>
-      <base-input v-model="userInformation.averageIncome" placeholder="Average income"> € </base-input>
-      <base-input v-model="userInformation.daysOnSickLeave" placeholder="Days on sick-leave"> days </base-input>
-      <base-checkbox v-model="userInformation.hasTuberculosis">
-        <span>I have Tuberculosis</span>
-      </base-checkbox>
-      <base-button> Calculate </base-button>
+    <h4>Compensation Calculator</h4>
+    <form @submit.prevent="onCalculateClick">
+      <base-input v-model="userInformation.averageIncome" placeholder="Average income">
+        <template #type> € </template>
+      </base-input>
+      <base-input v-model="userInformation.daysOnSickLeave" placeholder="Days on sick-leave">
+        <template #type> days </template>
+      </base-input>
+      <base-checkbox v-model="userInformation.hasTuberculosis"> I have tubercolosis</base-checkbox>
+      <base-button type="submit"> Calculate </base-button>
     </form>
     <div class="result">
       <div>
         <p class="compensation-days">
           The employer compensates <br />
-          <b>4 days </b>
+          <b>{{ employer.compensationDaysCount }} days </b>
         </p>
-        <p class="compensation-value">112,00€</p>
+        <p class="compensation-value">
+          <formatted-number symbol="€" :number="employer.compensationValue" />
+        </p>
         <p class="compensation-daily-allowance">
           Daily allowance <br />
-          28,00 €
+          <formatted-number symbol="€" :number="employer.dailyAllowance" />
         </p>
       </div>
       <div>
         <p class="compensation-days">
           The employer compensates <br />
-          <b>4 days </b>
+          <b>{{ healthInsurance.compensationDaysCount }} days </b>
         </p>
-        <p class="compensation-value">112,00€</p>
+        <p class="compensation-value"><formatted-number symbol="€" :number="healthInsurance.compensationValue" /></p>
         <p class="compensation-daily-allowance">
           Daily allowance <br />
-          28,00 €
+          <formatted-number symbol="€" :number="healthInsurance.dailyAllowance" />
         </p>
       </div>
     </div>
     <div class="total">
-      <p>Compensation total for 7 days (net)</p>
-      <b>112,00€</b>
+      <p>
+        Compensation total for <span>{{ userInformation.daysOnSickLeave }}</span> days (net)
+      </p>
+      <b>
+        <formatted-number symbol="€" :number="employer.compensationValue + healthInsurance.compensationValue" />
+      </b>
     </div>
   </div>
 </template>
 
 <style scoped lang="scss">
 .compensation-calculator {
+  background-color: var(--white);
   padding: 8rem 2rem;
   width: 32rem;
   color: var(--metal-dark);
 
-  h1 {
+  h4 {
     margin-bottom: 2rem;
   }
 

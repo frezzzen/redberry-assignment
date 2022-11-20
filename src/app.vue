@@ -1,7 +1,11 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import CompensationCalculator from './components/compensation-calculator/compensation-calculator.vue';
+</script>
 
 <template>
-  <div></div>
+  <div>
+    <compensation-calculator />
+  </div>
 </template>
 
 <style lang="scss" scoped></style>

@@ -63,9 +63,8 @@ const modelValue = computed({
     }
   }
 
-  .type {
-    top: calc(50% - 2rem);
-    transform: translateY(-50%);
+  .form-type {
+    top: calc(100% - 4rem);
     position: absolute;
     right: 1rem;
   }
