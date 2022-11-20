@@ -11,10 +11,22 @@ import InformationContent from './components/main-page/information-content.vue';
 </template>
 
 <style lang="scss" scoped>
+@import '@/styles/mixins.scss';
 main {
   padding: 10rem;
   display: flex;
-  justify-content: space-between;
   gap: 10rem;
+  justify-content: center;
+
+  @include responsive(1024px) {
+    padding: 3rem;
+    align-items: center;
+    flex-direction: column-reverse;
+  }
+
+  @include responsive(600px) {
+    padding: 1rem;
+    gap: 3rem;
+  }
 }
 </style>

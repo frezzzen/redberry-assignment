@@ -45,7 +45,7 @@ const modelValue = computed({
 
   input {
     padding: 1rem;
-    width: 28rem;
+    min-width: 28rem;
     height: 5rem;
     max-width: 100%;
     font-family: inherit;

@@ -71,12 +71,16 @@ const onCalculateClick = () => {
 </template>
 
 <style scoped lang="scss">
+@import '@/styles/mixins.scss';
+
 .compensation-calculator {
+  height: 75.5rem;
+  flex-shrink: 0;
   position: relative;
   overflow: hidden;
+  max-width: 32rem;
   background-color: var(--white);
   padding: 8rem 2rem;
-  width: 32rem;
   color: var(--metal-dark);
   $pathWidth: 10px;
   clip-path: polygon(
@@ -89,6 +93,10 @@ const onCalculateClick = () => {
     0% calc(100% - $pathWidth),
     0% $pathWidth
   );
+
+  @include responsive(1024px) {
+    max-width: 100%;
+  }
 
   h4 {
     margin-bottom: 2rem;
@@ -107,6 +115,7 @@ const onCalculateClick = () => {
     border-top: 1px solid var(--metal-light);
     border-bottom: 1px solid var(--metal-light);
     text-align: center;
+
     display: flex;
     gap: 2rem;
     justify-content: space-between;

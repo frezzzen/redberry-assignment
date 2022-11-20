@@ -38,6 +38,8 @@
 @import '@/styles/mixins.scss';
 
 article {
+  max-width: 66rem;
+
   h1 {
     margin-bottom: 2rem;
   }
@@ -50,6 +52,12 @@ article {
     display: flex;
     justify-content: space-between;
     gap: 4rem;
+
+    @include responsive(1300px) {
+      flex-direction: column-reverse;
+      align-items: center;
+      justify-content: center;
+    }
 
     & > div {
       h2 {
@@ -64,6 +72,9 @@ article {
         flex-direction: column;
         gap: 1rem;
         list-style: none;
+        @include responsive(600px) {
+          padding: 0 3rem;
+        }
 
         li {
           position: relative;
