@@ -1,0 +1,9 @@
+@mixin custom-bullet($gradient) {
+  position: absolute;
+  left: -2.5rem;
+  top: 1rem;
+  content: '';
+  width: 1.6rem;
+  height: 0.4rem;
+  background: $gradient;
+}

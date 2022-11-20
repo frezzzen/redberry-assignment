@@ -72,10 +72,23 @@ const onCalculateClick = () => {
 
 <style scoped lang="scss">
 .compensation-calculator {
+  position: relative;
+  overflow: hidden;
   background-color: var(--white);
   padding: 8rem 2rem;
   width: 32rem;
   color: var(--metal-dark);
+  $pathWidth: 10px;
+  clip-path: polygon(
+    10px 0%,
+    calc(100% - $pathWidth) 0%,
+    100% $pathWidth,
+    100% calc(100% - $pathWidth),
+    calc(100% - $pathWidth) 100%,
+    $pathWidth 100%,
+    0% calc(100% - $pathWidth),
+    0% $pathWidth
+  );
 
   h4 {
     margin-bottom: 2rem;
