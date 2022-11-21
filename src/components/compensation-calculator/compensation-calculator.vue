@@ -6,6 +6,7 @@ import { UserInformation } from '../../types/user/user-information.type';
 import BaseButton from '../base/base-button.vue';
 import { useCompensationCalculator } from '../../composables/useCompensationCalculator';
 import FormattedNumber from '../common/formatted-number.vue';
+import NumberAnimation from '../common/number-animation.vue';
 
 const userInformation = ref<UserInformation>({
   averageIncome: 0,
@@ -14,9 +15,11 @@ const userInformation = ref<UserInformation>({
 });
 
 const { employer, healthInsurance, calculateCompensation } = useCompensationCalculator(userInformation);
+const daysToDisplay = ref(0);
 
 const onCalculateClick = () => {
   calculateCompensation();
+  daysToDisplay.value = userInformation.value.daysOnSickLeave;
 };
 </script>
 
@@ -24,10 +27,10 @@ const onCalculateClick = () => {
   <div class="compensation-calculator">
     <h4>Compensation Calculator</h4>
     <form @submit.prevent="onCalculateClick">
-      <base-input v-model="userInformation.averageIncome" placeholder="Average income">
+      <base-input v-model="userInformation.averageIncome" placeholder="Average income" type="number">
         <template #type> € </template>
       </base-input>
-      <base-input v-model="userInformation.daysOnSickLeave" placeholder="Days on sick-leave">
+      <base-input v-model="userInformation.daysOnSickLeave" placeholder="Days on sick-leave" type="number">
         <template #type> days </template>
       </base-input>
       <base-checkbox v-model="userInformation.hasTuberculosis"> I have tubercolosis</base-checkbox>
@@ -37,34 +40,70 @@ const onCalculateClick = () => {
       <div>
         <p class="compensation-days">
           The employer compensates <br />
-          <b>{{ employer.compensationDaysCount }} days </b>
+          <b>
+            <number-animation :to="employer.compensationDaysCount">
+              <template #number="{ number }">
+                {{ number }}
+              </template>
+            </number-animation>
+            days
+          </b>
         </p>
         <p class="compensation-value">
-          <formatted-number symbol="€" :number="employer.compensationValue" />
+          <number-animation :to="employer.compensationValue">
+            <template #number="{ number }">
+              <formatted-number symbol="€" :number="number" />
+            </template>
+          </number-animation>
         </p>
         <p class="compensation-daily-allowance">
           Daily allowance <br />
-          <formatted-number symbol="€" :number="employer.dailyAllowance" />
+          <number-animation :to="healthInsurance.dailyAllowance">
+            <template #number="{ number }">
+              <formatted-number symbol="€" :number="number" />
+            </template>
+          </number-animation>
         </p>
       </div>
       <div>
         <p class="compensation-days">
           The employer compensates <br />
-          <b>{{ healthInsurance.compensationDaysCount }} days </b>
+          <b>
+            <number-animation :to="healthInsurance.compensationDaysCount">
+              <template #number="{ number }">
+                {{ number }}
+              </template>
+            </number-animation>
+            days
+          </b>
         </p>
-        <p class="compensation-value"><formatted-number symbol="€" :number="healthInsurance.compensationValue" /></p>
+        <p class="compensation-value">
+          <number-animation :to="healthInsurance.compensationValue">
+            <template #number="{ number }">
+              <formatted-number symbol="€" :number="number" />
+            </template>
+          </number-animation>
+        </p>
         <p class="compensation-daily-allowance">
           Daily allowance <br />
-          <formatted-number symbol="€" :number="healthInsurance.dailyAllowance" />
+          <number-animation :to="healthInsurance.dailyAllowance">
+            <template #number="{ number }">
+              <formatted-number symbol="€" :number="number" />
+            </template>
+          </number-animation>
         </p>
       </div>
     </div>
     <div class="total">
       <p>
-        Compensation total for <span>{{ userInformation.daysOnSickLeave }}</span> days (net)
+        Compensation total for <span>{{ daysToDisplay }}</span> days (net)
       </p>
       <b>
-        <formatted-number symbol="€" :number="employer.compensationValue + healthInsurance.compensationValue" />
+        <number-animation :to="employer.compensationValue + healthInsurance.compensationValue">
+          <template #number="{ number }">
+            <formatted-number symbol="€" :number="number" />
+          </template>
+        </number-animation>
       </b>
     </div>
   </div>
@@ -94,8 +133,13 @@ const onCalculateClick = () => {
     0% $pathWidth
   );
 
+  animation: fade-in 0.5s ease-out;
+
   @include responsive(1024px) {
-    max-width: 100%;
+  }
+
+  @include responsive(600px) {
+    min-height: 80vh;
   }
 
   h4 {

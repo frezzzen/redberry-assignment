@@ -61,6 +61,16 @@ const modelValue = computed({
     &:focus {
       outline: 0;
     }
+
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    &[type='number'] {
+      -moz-appearance: textfield;
+    }
   }
 
   .form-type {

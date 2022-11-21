@@ -40,6 +40,8 @@
 article {
   max-width: 66rem;
 
+  animation: fade-in 0.5s ease-out;
+
   h1 {
     margin-bottom: 2rem;
   }
@@ -68,6 +70,7 @@ article {
       }
 
       ul {
+        padding-left: 2.6rem;
         display: flex;
         flex-direction: column;
         gap: 1rem;
@@ -79,7 +82,7 @@ article {
         li {
           position: relative;
           &:before {
-            @include custom-bullet(var(--gradient-red));
+            @include custom-bullet(var(--gradient-red), 1.6rem);
           }
 
           ul {
@@ -88,7 +91,7 @@ article {
 
             li {
               &:before {
-                @include custom-bullet(var(--gradient-metal-light));
+                @include custom-bullet(var(--gradient-metal-light), 1.4rem);
               }
             }
           }

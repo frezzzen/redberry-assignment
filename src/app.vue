@@ -13,7 +13,7 @@ import InformationContent from './components/main-page/information-content.vue';
 <style lang="scss" scoped>
 @import '@/styles/mixins.scss';
 main {
-  padding: 10rem;
+  padding: 10rem 10rem 0;
   display: flex;
   gap: 10rem;
   justify-content: center;
