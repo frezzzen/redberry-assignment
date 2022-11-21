@@ -9,8 +9,7 @@ interface Props {
 
 const props = withDefaults(defineProps<Props>(), {
   duration: 500,
-  from: 0,
-  to: 1000
+  from: 0
 });
 
 const numberToDisplay = ref(props.from);
