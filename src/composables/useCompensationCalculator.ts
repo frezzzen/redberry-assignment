@@ -48,9 +48,11 @@ export const useCompensationCalculator = (userInformation: Ref<UserInformation>)
   const calculateCompensation = () => {
     resetCompensationResult(employer);
     resetCompensationResult(healthInsurance);
+    const dailyAllowance = (averageIncome.value * compensationRate) / 30;
+    employer.value.dailyAllowance = dailyAllowance;
+    healthInsurance.value.dailyAllowance = dailyAllowance;
     if (daysOnSickLeave.value < 4) return;
     let sickDays = daysOnSickLeave.value - nonCompensationDays;
-    const dailyAllowance = (averageIncome.value * compensationRate) / 30;
 
     // checking if health insurance should compensate some sick days
     if (sickDays > 4) {

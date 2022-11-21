@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { nextTick, onMounted, ref, useSlots, watch } from 'vue';
+import { ref, watch } from 'vue';
 
 interface Props {
   from?: number;

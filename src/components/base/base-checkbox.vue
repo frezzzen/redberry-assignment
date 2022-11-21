@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import IconChecboxBorder from '../icons/checkbox/icon-checbox-border.vue';
+import IconCheckboxBorder from '../icons/checkbox/icon-checkbox-border.vue';
 import IconCheckboxMark from '../icons/checkbox/icon-checkbox-mark.vue';
 
 interface Props {
@@ -27,7 +27,7 @@ const modelValue = computed({
     <!-- TODO: Create checkbox as markup one-->
     <label>
       <input v-model="modelValue" type="checkbox" />
-      <icon-checbox-border />
+      <icon-checkbox-border />
       <icon-checkbox-mark v-if="modelValue" class="mark" />
     </label>
     <p class="form-label">

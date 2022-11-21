@@ -58,7 +58,7 @@ const onCalculateClick = () => {
         </p>
         <p class="compensation-daily-allowance">
           Daily allowance <br />
-          <number-animation :to="healthInsurance.dailyAllowance">
+          <number-animation :to="employer.dailyAllowance">
             <template #number="{ number }">
               <formatted-number symbol="€" :number="number" />
             </template>
