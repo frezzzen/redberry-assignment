@@ -46,8 +46,11 @@ article {
     margin-bottom: 2rem;
   }
 
-  p {
+  & > p {
     margin-bottom: 4rem;
+    span {
+      color: #e1261c;
+    }
   }
 
   .container {
